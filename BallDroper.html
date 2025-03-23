@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Mini Project</title>
+	<style>
+		body{
+			font-size: 20px;
+			text-align: center;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		button{
+			font-size: 17px;
+		}
+		hr{
+			clear:both;
+			margin-top:0.5em;
+			margin-bottom:0.5em;
+		}
+
+		#plane{
+			
+			border:3px solid black;
+			background-color:rgba(255,0,0,0.75);
+			
+			width: 50em;
+			height: 25em;
+
+			position:relative;
+			margin: auto;
+			margin-top:2em;
+			margin-bottom:4.5em;
+        
+		}
+
+		.circle{
+			border: 0.1em solid black;
+			background-color: green;
+			width: 2em;
+			height: 2em;
+			border-radius: 50%;
+			position: absolute;
+
+		}
+
+		#info{
+			color:red;
+			height: 1.5em;
+		}
+
+        form{
+           display: inline;
+            width: 50px;
+            height: 50px;
+        
+        }
+        button{
+            margin: 20px;
+        
+        }
+
+       
+	</style>
+</head>
+<body>
+<h1 style="font-size: 50px;">Mini Project</h1>
+
+<hr/>
+
+
+<!-- input? -->
+<form>
+    <label for="left" >Left</label>
+    <input type="text" id="left" placeholder="%">
+    <label for="top" >Top</label>
+    <input type="text" id="top"  placeholder="%">
+
+</form>
+
+<button onclick="drop();" id="button">Drop</button><br>
+<div id="plane">
+</div>
+
+
+
+<script type="text/javascript">
+
+  
+
+	const widthOfPlane=50;
+	const heightOfPlane=25;
+
+	const circleDiameter=2.1;
+	const maxX=(1-(circleDiameter/widthOfPlane))*100;
+	const maxY=(1-(circleDiameter/heightOfPlane))*100;
+	let dropInterval=undefined;
+
+	let selectedDiv=undefined;
+
+	function getPercNumber(valueString){
+		return Number(valueString.replace('%',""));
+	}
+	function getPercInputValue(inputId){		
+		let val = document.getElementById(inputId).value;
+        let number = Number(val);
+        if(isNaN(number) || number < 0 || number > 100){
+            return -1;
+        }
+        else{
+            return number;
+        }
+
+	}	
+    let oldCircle = null;  
+
+    function drop() {
+    const left = document.getElementById("left");
+    const top = document.getElementById("top");
+
+    const leftValue = parseInt(left.value);
+    const topValue = parseInt(top.value);
+
+    if(isNaN(leftValue) || isNaN(topValue) || leftValue < 0 || leftValue > 100 ||topValue < 0 || topValue > 100){
+
+        alert("The input isn't a number. Also the number should range between 0-100");
+        return;
+    }
+
+    
+    const leftPixel = (leftValue / 100) * widthOfPlane;
+    const topPixel = (topValue / 100) * heightOfPlane;
+
+//circle
+    let newCircle = document.createElement("div");
+    newCircle.classList.add("circle");
+    newCircle.style.left = `${leftPixel}em`;
+    newCircle.style.top = `${topPixel}em`;
+
+    
+    const plane = document.getElementById("plane");
+    plane.appendChild(newCircle);
+
+
+    
+    if (selectedDiv) {
+        selectedDiv.style.backgroundColor = "gray";
+        
+    }
+
+	selectedDiv = newCircle;
+
+   setTimeout(() => {
+        newCircle.style.top = 'calc(100% - 2em)';
+    },400);
+}
+
+</script>
+
+</body>
+</html>

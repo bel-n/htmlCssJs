@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<style type="text/css">
+	.cont{
+		background-color: lightgray;
+		height: 500px;
+		width: 200px;
+		float: left;
+		margin: 10px;
+	}
+	#done{
+		background-color: green;
+	}
+	#prog{
+		background-color: orange;
+	}
+	#todo{
+		background-color: red;
+	}
+	#done,#todo,#prog{
+		text-align: center;
+		color: white;
+		width: 150px;
+		align-content: center;
+		height: 40px;
+		margin-left: 25px;
+	}
+	.drag{
+		background-color: gray;
+		text-align: center;
+		height: 60px;
+		width: 130px;
+		margin-left: 30px;
+		border: 3px dotted white;
+		color: white;
+        transition: transform 0.2s; 
+	}
+</style>
+<body>
+	<div id="cont1" class="cont">
+        <div id="todo">To Do</div>
+        <div id="drag1" class="drag" draggable="true" ondragstart="drag(event, 1)" ondragend="endDrag(event)" onmouseover="enlargeTask(event)" onmouseout="resetTask(event)">Task 1</div>
+        <div id="drag2" class="drag" draggable="true" ondragstart="drag(event, 2)" ondragend="endDrag(event)" onmouseover="enlargeTask(event)" onmouseout="resetTask(event)">Task 2</div>
+        <div id="drag3" class="drag" draggable="true" ondragstart="drag(event, 3)" ondragend="endDrag(event)" onmouseover="enlargeTask(event)" onmouseout="resetTask(event)">Task 3</div>
+    </div>
+    <div id="cont2" class="cont" ondrop="drop(event, 2)" ondragover="allowDrop(event)">
+        <div id="prog">In Progress</div>
+        <div id="drag4" class="drag" draggable="true" ondragstart="drag(event, 4)" ondragend="endDrag(event)" onmouseover="enlargeTask(event)" onmouseout="resetTask(event)">Task 4</div>
+        <div id="drag5" class="drag" draggable="true" ondragstart="drag(event, 5)" ondragend="endDrag(event)" onmouseover="enlargeTask(event)" onmouseout="resetTask(event)">Task 5</div>
+    </div>
+    <div id="cont3" class="cont" ondrop="drop(event, 3)" ondragover="allowDrop(event)">
+        <div id="done">Done</div>
+
+
+    </div>
+
+
+
+    <script type="text/javascript">
+        function allowDrop(){
+            event.preventDefault();
+        }
+        function drag(event, dragDivNo){
+            event.dataTransfer.setData("text", dragDivNo.toString());
+        }
+        function drop(event, dropDivNo){
+            allowDrop();
+            var dragDivNo = event.dataTransfer.getData("text");
+            var dragDiv = document.getElementById("drag"+dragDivNo);
+            var dropDiv = document.getElementById("cont"+dropDivNo);
+            var parentDiv = document.getElementById(dragDiv.parentNode.id);
+            if(dropDiv.id == "cont1"){
+                parentDiv.removeChild(dragDiv);
+                dropDiv.appendChild(dragDiv);
+                dragDiv.style.backgroundColor = "gray";
+                dragDiv.innerHTML ="Task" + dragDivNo;
+            }else if (dropDiv.id == "cont2"){
+                parentDiv.removeChild(dragDiv);
+                dropDiv.appendChild(dragDiv);
+                dragDiv.style.backgroundColor = "orange";
+                dragDiv.innerHTML = "Task " + dragDivNo + " is in Progress";
+            }else{
+                parentDiv.removeChild(dragDiv);
+                dropDiv.appendChild(dragDiv);
+                dragDiv.style.backgroundColor = "lightgreen";
+                
+                dragDiv.innerHTML = "Task " +dragDivNo + " is done";
+            }
+
+
+            
+        }
+
+        function enlargeTask(event) {
+            event.target.style.transform = "scale(1.2)";
+           event.target.style.backgroundColor = "gray";
+        }
+
+        function resetTask(event) {
+            event.target.style.transform = "scale(1)";
+            var parentId = event.target.parentNode.id;
+            if(parentId == "cont2"){
+                event.target.style.backgroundColor = "goldenrod";
+            }
+            else if(parentId == "cont3"){
+                event.target.style.backgroundColor = "lightgreen";
+            }
+            else{
+                event.target.style.backgroundColor = "gray";
+            }
+            
+        }
+
+        function endDrag(event) {
+            event.target.style.transform = "scale(1)"; 
+           
+        }
+    </script>
+    </body>
+    </html>
+

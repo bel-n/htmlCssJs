@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #timer{
+            width: 300px;
+            font-size: 100px;
+        }
+        #buttonholder{
+            width: 300px;
+        }
+        button{
+            width: 80px;
+            height: 50px;
+            color: white;
+            background-color: black;
+            font-size: 20px;
+            border-radius: 10px;
+        }
+
+        #divholder{
+            /*text-align: center;*/
+            width: 300px;
+        }
+        #startingdiv{
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        let counter = 0;
+        let timerInterval = null;
+        let divInterval = null;
+
+        function increaseCounter() {
+            counter++;
+            document.getElementById("timer").innerHTML = counter;
+        }
+
+        function clear() {
+            document.getElementById("divholder").innerHTML = "";
+            var div = document.createElement("div");
+            div.style.width = "70px";
+            div.innerHTML = "Numbers";
+            div.style.marginTop = "20px";
+            document.getElementById("divholder").appendChild(div);
+        }
+
+        function createDiv(){
+            if(counter % 2 == 0){
+                var div = document.createElement("div");
+                div.style.width = "70px";
+                div.style.background = "pink";
+                div.innerHTML = counter;
+                div.style.border = "2px dotted black";
+                document.getElementById("divholder").appendChild(div);
+            }
+            else{
+                var div = document.createElement("div");
+                div.style.width = "70px";
+                div.style.background = "white";
+                div.style.color = "black";
+                div.innerHTML = counter;
+                div.style.border = "2px solid black";
+                document.getElementById("divholder").appendChild(div);
+            }
+            
+            
+        }
+
+        function startTimer() {
+            if (timerInterval == null){
+                timerInterval = setInterval(increaseCounter, 1000);
+                divInterval = setInterval(createDiv, 1000);
+            }
+        }
+
+        function stopTimer() {
+            if (timerInterval != null) {
+                clearInterval(timerInterval);
+                clearInterval(divInterval);
+                timerInterval = undefined;
+                divInterval = undefined;
+            }
+        }
+
+        function resetTimer() {
+            stopTimer();
+            startTimer();
+            counter = 0;
+            document.getElementById("timer").innerHTML = "0";
+            clear();  
+        }
+
+    </script>
+</head>
+<body>
+    <div id = "timer">
+        0
+    </div>
+    <div id = "buttonholder">
+        <button id = "start" onclick="startTimer()">Start</button>
+        <button id = "stop" onclick="stopTimer()">Stop</button>
+        <button id = "reset" onclick = "resetTimer()">Reset</button>
+    </div>
+    <div id = "divholder">
+        <div id = "startingdiv">Numbers</div>
+    </div>
+</body>
+
+</html>

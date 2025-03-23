@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drag and Drop JS</title>
+    <style>
+    table {
+      border: 2px solid black;
+      border-collapse: collapse;
+
+    }
+    td {
+        border: 2px solid black;
+
+    }
+    div {
+      width: 100px;
+      height: 100px;
+      background-color: green;
+      font-size: 50px;
+      color: white;
+      text-align: center;
+      border-radius: 10px;
+      
+    }
+    button {
+      width: 100px;
+      height: 50px;
+      background-color: black;
+      font-size: 20px;
+      color: white;
+      text-align: center;
+      border-radius: 10px;
+
+    }
+
+  </style>
+  <script>
+  //Author: Maheshya Weerasinghe
+    let emptyCellID = "cell9";
+
+    function squareDrag(event, divNumber) {
+      event.dataTransfer.setData("text", divNumber.toString());
+    }
+
+    function squareOver(event) {
+      event.preventDefault();
+    }
+
+    function squareDrop(event, cellNumber) {
+      event.preventDefault();
+      let squareNumber = event.dataTransfer.getData("text");
+
+      let draggedSquare = document.getElementById("square" + squareNumber); //sto drag
+      let targetCell = document.getElementById("cell" + cellNumber); //kade ke drop
+
+      if (targetCell.innerHTML.trim() === "") {  //proveruva dali nasiot cell e prazen
+        //samo vo prazen cell moze da dropneme
+        emptyCellID = draggedSquare.parentNode.id;
+        targetCell.appendChild(draggedSquare);
+      }
+    }
+
+    function shuffle() {
+      for (let i = 0; i < 100; i++) {
+        let randomSquareNumber = Math.floor(Math.random() * 8) + 1; //
+        let randomSquare = document.getElementById("square" + randomSquareNumber);
+        let targetCell = document.getElementById(emptyCellID);
+        emptyCellID = randomSquare.parentNode.id; //this will help us ensure on what position the element was originally in
+        //so the new emptycell is now on the position that the dragged el. was in
+        targetCell.appendChild(randomSquare); //we append our dragged el to the target cell
+      }
+    }
+  </script>
+  </head>
+  <body>
+    <h2>PUZZLE</h2>
+    <table>
+      <tbody>
+      <tr>
+        <td id="cell1" ondragover="squareOver(event)" ondrop="squareDrop(event, 1)">
+          <div id="square1" draggable="true" ondragstart="squareDrag(event, 1)">1</div>
+        </td>
+        <td id="cell2" ondragover="squareOver(event)" ondrop="squareDrop(event, 2)">
+          <div id="square2" draggable="true" ondragstart="squareDrag(event, 2)">2</div>
+        </td>
+        <td id="cell3" ondragover="squareOver(event)" ondrop="squareDrop(event, 3)">
+          <div id="square3" draggable="true" ondragstart="squareDrag(event, 3)">3</div>
+        </td>
+      </tr>
+      <tr>
+        <td id="cell4" ondragover="squareOver(event)" ondrop="squareDrop(event, 4)">
+          <div id="square4" draggable="true" ondragstart="squareDrag(event, 4)">4</div>
+        </td>
+        <td id="cell5" ondragover="squareOver(event)" ondrop="squareDrop(event, 5)">
+          <div id="square5" draggable="true" ondragstart="squareDrag(event, 5)">5</div>
+        </td>
+        <td id="cell6" ondragover="squareOver(event)" ondrop="squareDrop(event, 6)">
+          <div id="square6" draggable="true" ondragstart="squareDrag(event, 6)">6</div>
+        </td>
+      </tr>
+      <tr>
+        <td id="cell7" ondragover="squareOver(event)" ondrop="squareDrop(event, 7)">
+          <div id="square7" draggable="true" ondragstart="squareDrag(event, 7)">7</div>
+        </td>
+        <td id="cell8" ondragover="squareOver(event)" ondrop="squareDrop(event, 8)">
+          <div id="square8" draggable="true" ondragstart="squareDrag(event, 8)">8</div>
+        </td>
+        <td id="cell9" ondragover="squareOver(event)" ondrop="squareDrop(event, 9)"></td>
+      </tr>
+    </tbody></table>
+    <p>
+      <button onclick="shuffle()">Shuffle</button>
+    </p>
+  </body>
+</html>

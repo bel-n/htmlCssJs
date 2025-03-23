@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Moving Div</title>
+
+
+        <style>
+
+            #div1{
+                width: 300px;
+                height: 300px;
+                background-color: yellow;
+                position: relative;
+            }
+
+            #circle{
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                background-color: red;
+                position:absolute ;
+
+            }
+
+            #button1{
+                float: left;
+                margin-top: 350px;
+                margin-left: 90px;
+
+            }
+
+            #div2{
+                width: 300px;
+                height: 300px;
+                background-color: magenta;
+                float: right;
+                position: relative;
+                
+            }
+            p{
+                float: right;
+              position: absolute;
+              top: 250px;
+              left: 1100px;
+              text-align: center;
+              font-size: medium;
+              color: magenta;
+              font-weight: bold;
+
+
+            }
+            
+        </style>
+    </head>
+
+    <body>
+
+<div id="div1" ondragover="allowDrop(event)" ondrop="drop(event,1)">
+    <div id="circle" draggable="true" ondragstart="drag(event,1)"></div>
+
+    <button onclick="moveIt()" id="button1">Click on the button</button>
+</div>
+
+<div id="div2" ondragover="allowDrop(event)" ondrop="drop(event,2)"></div>
+<p>Drop the ball in this container</p>
+
+
+<script>
+    //idea:
+    //animate the circle to go from one corner to another and when you hover on it you can drag it and drop it other container
+
+
+    function moveIt(){
+        var elm = document.getElementById("circle");
+        let id = null;
+        let pos = 0;
+        id = setInterval(frame, 5);
+
+        function frame(){
+            if(pos == 230){ //dont escape container 
+                clearInterval(id);
+            }
+            else{
+                pos++;
+                elm.style.top = pos + "px";
+                elm.style.left = pos + "px";
+            }
+        }
+    }
+
+
+    function allowDrop(event){
+        event.preventDefault();
+    
+        
+    }
+
+    function drag(event, dragDivNo) {
+    event.dataTransfer.setData("text", dragDivNo.toString());
+}
+
+
+
+
+    function drop(event, dropDivNo){
+        event.preventDefault();
+    
+        var elmToDrag = document.getElementById("circle");
+        var TargetDiv =  document.getElementById("div" + dropDivNo);
+        if(dropDivNo == 2){
+            elmToDrag.style.backgroundColor = "green";
+        }
+        else{
+            elmToDrag.style.backgroundColor = "red";
+        }
+        TargetDiv.appendChild(elmToDrag);
+    }
+</script>
+    </body>
+</html>

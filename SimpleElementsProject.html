@@ -1,0 +1,188 @@
+<DOCTYPE! html> 
+    <html>
+<head>
+    <meta name="viewport" content="width=device-width"initial-scale="1.0">
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        .topnav {
+  overflow: hidden;
+  background-color: lightpink;
+ text-align: right;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color:#ff6347;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #ff6347;
+  color: black
+}
+
+        label {
+    width:180px;
+    clear:left;
+    text-align:right;
+    padding-right:10px;
+}
+
+input, label {
+    float:left;
+}
+.row {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .row {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media only screen and (max-width: 800px) {
+            .row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+         @media only screen and (max-width: 700px) {
+            .row {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+      
+
+        @media only screen and (max-width: 600px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        
+
+        .gradient {
+            padding: 20px;
+            text-align: center;
+            background-color: red;
+            border: 1px solid #ccc;
+             background-image: linear-gradient(to right, #ff6347 0%, #FFC0CB 100%);
+            
+        }
+
+    
+        .label{
+            background-color: lightpink;
+            color: black;
+        }
+
+        .form{
+            background-color: lightgray;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+    <h1 style="background-color: pink; color: black; text-align: center;"> Simple elements in HTML</h1>
+    <nav class="topnav">
+        <a href="form.html"> Go back to previous task (07.03.2024)</a>
+        <a href="panda.html"> Kungfu Panda WebPage</a>
+        <a href=" https://www.famnit.upr.si/en">UP FAMNIT</a>
+    </nav>
+     <fieldset>
+
+
+        <form action="#" method="post" oninput="Login">
+
+        <p>
+            <label for="country">Country</label>
+            <select class="label">
+                <option class="label" selected> Slovenia </option>
+                <option class="label">Macedonia</option>
+            </select>
+            <br>
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required autofocus class="label"><br>
+
+
+            <label for="number">Number</label>
+            <input type="number" id="number" name="number" class="label"><br>
+
+            <label for="pass"> Password </label>
+            <input type="password" id="pass" name="password" required autofocus class="label"><br>
+
+            <button type="sumbit" style="background-color:lightpink; color:black; float: right;">Login</button>
+            <button type="reset" onclick="alert('All data deleted')" style="background-color:lightpink; color:black; float: right;">Delete</button>
+        </p>
+        
+        </fieldset>
+
+        
+     </form>
+
+
+ <div class="row">
+        <div class="gradient">HTML</div>
+        <div class="gradient">CSS</div>
+        <div class="gradient">JavaScript</div>
+        <div class="gradient">Java</div>
+        <div class="gradient">OCaml</div>
+        <div class="gradient">C</div>
+        <div class="gradient">C++</div>
+        <div class="gradient">C#</div>
+    </div>
+
+    <hr>
+    <fieldset>
+        <legend style="color: hotpink;">A picture </legend>
+        <img src="download.jpeg" style="float: center;">
+
+
+    </fieldset>
+
+    <footer style="width: 100%;">
+            
+    <table style=" width: 100%; background-color: lightpink ;color:black; text-align: center;">
+        <tr>
+                    <th>About us</th>
+                    <th >Contacts</th>
+                   
+        </tr>
+            
+    
+
+        <tr>
+            <td >If you need more help with learning programming use: </td>
+            <td>Contact us for more info: </td>
+        </tr>
+
+        <tr>
+            <td ><a href="https://www.w3schools.com/html/default.asp"> W3Schools </a></td>
+            <td >tel:+386 1 234 5678</td>
+        </tr>
+
+
+    
+
+</body>
+   
+
+
+    </html>

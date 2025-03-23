@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Music Player</title>
+
+        <style>
+            #line{
+                width: 300px;
+                height: 5px;
+                background-color: black;
+                border: black solid 1px;
+                position: relative;
+                left: 50px;
+                border-radius: 10px;
+
+            }
+            #ball{
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: red;
+                position: absolute;
+                top: -7px;
+                
+
+            }
+            #p1{
+                position: absolute;
+                left: -20px;
+                top: -10px;
+
+            }
+            #p2{
+                position: absolute;
+                left: 310px;
+                top: -10px;
+            }
+            button{
+                width: 80px;
+                height: 30px;
+                
+                background-color: black;
+                color: white;
+                position: absolute;
+                top: 150px;
+                left: 150px;
+            }
+            h1{
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Music Player</h1>
+        
+        <div id="line">
+            <p id="p1"></p>
+            <div id="ball"></div>
+            <p id="p2">1.00</p>
+        </div>
+        
+        <button style="display: inline;" onclick="startMove()" id="button1">Play</button>
+        <button id="button2" onclick="pause()" style="display: none;">Pause</button>
+        <button style="display: none;" onclick="reset()" id="button3">Replay</button>
+      
+
+        <script>
+         var ball = document.getElementById("ball");
+         var p1Val = 0.00; //ova ke se menuva
+         document.getElementById("p1").innerHTML = p1Val.toFixed(2); //this is how we will change it
+         var p1Element = document.getElementById("p1");  
+        var interVal; //for what interval it will move to the rigth
+         var left1 = 0;
+         function move(){
+            if(left1 < 280 && p1Val < 1.00 ){ //ako ne ni e topkata stignata do kraj i ako ne ni e intervalot zavrsen
+                left1+=28; //280/10 move it for 28 pixels
+                ball.style.left = left1 + "px";
+                ball.style.transition = " left 400ms linear";
+                //up to here we move the circle
+                p1Val = p1Val + 0.10;
+                p1Val = parseFloat(p1Val.toFixed(2));
+                p1Element.innerHTML = p1Val.toFixed(2);
+               //here we gonna change the value of the left p
+            }
+            else{ //ako imame stignato do krajot
+                clearInterval(interVal);
+                interVal = null;
+                p1Element.innerHTML = "1.00";
+            document.getElementById("button2").style.display ="none";
+            document.getElementById("button1").style.display = "none";
+            document.getElementById("button3").style.display = "inline"; //change the buttons so they will swap
+            }
+         }
+         function startMove(){
+
+            interVal = setInterval(move,400); //every 400ms execute the function
+            document.getElementById("button1").style.display = "none"; // Hide play button
+                document.getElementById("button2").style.display = "inline"; // Show pause button
+                document.getElementById("button3").style.display = "none"; // Hide replay button
+         }
+         function pause(){
+            clearInterval(interVal);
+            document.getElementById("button1").style.display = "inline";
+            document.getElementById("button2").style.display = "none";
+
+         }
+         function reset(){
+            clearInterval(interVal); // Stop the interval
+            left1 = 0; // Reset the position of the ball
+            p1Val = 0.00; // Reset the timer
+            ball.style.left = left1 + "px"; // Reset the position of the ball
+            document.getElementById("p1").innerHTML = p1Val.toFixed(2); // Reset the timer
+             // Hide the reset button
+            document.getElementById("button1").style.display="inline"; // Show the play button
+            document.getElementById("button2").style.display = "none";
+            document.getElementById("button2").style.display = "none";
+            
+            
+         }  
+        </script>
+    </body>
+
+</html>

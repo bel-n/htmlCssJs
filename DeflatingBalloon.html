@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Midterm II Task 2</title>
+	<style type="text/css">
+		body{
+			font-size: 20px;
+			text-align: center;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		#circle{
+			width:200px;
+			height:200px;
+			background-color:red;
+			border:2px solid black;
+			border-radius: 50%;
+			margin: auto;
+			text-align: center;
+			vertical-align: middle;
+			margin-top:3em;
+			margin-bottom:1.5em;
+			transition: transform 0.3s ease-in-out;
+		}
+		
+		#circle:active{
+			background-color: yellow;
+		}
+
+		h1{
+			text-align: center;
+		}
+
+		div{
+			margin: auto;
+		}
+
+		button{
+			font-size:20px;
+		}
+	</style>
+
+</head>
+<body>
+	<div id="circle" onmouseover="inflate()" onmouseout="mouseOut()" onclick="deflateStart()"></div>
+	<div>
+
+		<h1 id ="text">Hover over the element to inflate it, click it to deflate it</h1>
+
+		<!-- For 70% of the points, you can use a button to deflate -->
+		<!-- If you are having trouble, try to solve the task like this before atempting to solve it fully -->
+		<!--<button>Deflate</button>-->
+
+	</div>
+
+    <script>
+
+        
+        //ne mi treba zatoa sto koristam event
+
+        var inflating = false;
+		var deflating = false;
+
+        var now = 1;
+		var minScale = 0.5;
+        var maxScale = 1.5;
+        var incScale = 0.1;
+	    var text = document.getElementById("text");
+        var ballon = document.getElementById("circle");
+        
+        function inflate(){
+            if(!deflating && now < maxScale){ //ako momentalno ni e pomala topkata od maximmot
+                inflating =true;
+				now+=incScale;
+                ballon.style.transform = `scale(${now})`;
+				text.innerHTML = "Inflating...";
+				ballon.style.backgroundColor = "orange";
+
+
+            }
+        }
+
+		function deflate(){ //ova e pobitna funkcija od inflate
+			if(now > minScale){
+				
+				now-=incScale;
+				ballon.style.transform = `scale(${now})`;
+				
+				
+			}
+		}
+
+		function deflateStart(){
+			
+				deflating = true;
+				text.innerHTML = "Deflating...";
+				ballon.style.backgroundColor = "brown";
+				var intervall = setInterval(deflate, 100);
+			if(now == minScale){
+				deflating = false;
+				clearInterval(intervall);
+				ballon.style.backgroundColor = "red";
+			    text.innerHTML = "Hover over the element to inflate it, click it to deflate it";
+			}
+			
+			
+		}
+		function mouseOut(){
+			if(!deflating){
+			ballon.style.backgroundColor = "red";
+			text.innerHTML = "Hover over the element to inflate it, click it to deflate it";
+			}
+		}
+    </script>
+
+
+</body>
+</html>
